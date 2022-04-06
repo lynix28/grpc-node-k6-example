@@ -1,0 +1,14 @@
+{
+  "name": "grpc-k6-example",
+  "version": "1.0.0",
+  "description": "GRPC API automation test example with K6 by Grafana Labs",
+  "main": "index.js",
+  "scripts": {
+    "server": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.6.2"
+  }
+}

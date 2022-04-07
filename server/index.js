@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const grpc = require('@grpc/grpc-js');
 const PROTO_PATH = './testing.proto';
-var protoLoader = require('@grpc/proto-loader');
+const protoLoader = require('@grpc/proto-loader');
 
 const options = {
 	keepCase: true,
@@ -10,7 +10,7 @@ const options = {
 	defaults: true,
 	oneofs: true,
 };
-var packageDefinition = protoLoader.loadSync(PROTO_PATH, options);
+const packageDefinition = protoLoader.loadSync(PROTO_PATH, options);
 const testProto = grpc.loadPackageDefinition(packageDefinition);
 
 const server = new grpc.Server();
@@ -30,7 +30,7 @@ server.addService(testProto.TestService.service, {
 	},
 	deleteData: (_, callback) => {
 		const userId = _.request.id;
-		datas = datas.filter(({ id }) => id !== userId);
+		datas = datas.filter(({ id }) => id != userId);
 		callback(null, {});
 	},
 	editData: (_, callback) => {
@@ -42,9 +42,9 @@ server.addService(testProto.TestService.service, {
 		callback(null, userItem);
 	},
 	addData: (call, callback) => {
-		let _news = { id: Date.now(), ...call.request };
-		datas.push(_news);
-		callback(null, _news);
+		let _datas = { id: Date.now(), ...call.request };
+		datas.push(_datas);
+		callback(null, _datas);
 	},
 });
 
@@ -55,5 +55,9 @@ server.bindAsync(
 		console.log('Server at port:', port);
 		console.log('Server running at http://127.0.0.1:50051');
 		server.start();
+
+		if (error) {
+			console.log('Server cannot start');
+		}
 	}
 );

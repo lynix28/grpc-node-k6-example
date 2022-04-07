@@ -36,9 +36,9 @@ server.addService(testProto.TestService.service, {
 	editData: (_, callback) => {
 		const userId = _.request.id;
 		const userItem = datas.find(({ id }) => userId == id);
-		userItem.body = _.request.body;
-		userItem.postImage = _.request.postImage;
-		userItem.title = _.request.title;
+		userItem.firstName = _.request.firstName;
+		userItem.lastName = _.request.lastName;
+		userItem.email = _.request.email;
 		callback(null, userItem);
 	},
 	addData: (call, callback) => {

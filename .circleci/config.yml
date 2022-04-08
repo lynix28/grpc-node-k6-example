@@ -23,6 +23,7 @@ jobs:
             IPaddress=`node -p "require('ip').address()"`
             echo "export const BASE_URL = $IPaddress;" > env.js
             echo "$IPaddress"
+            cat env.js
       # - run:
       #     name: "Waiting for Node Server to Start"
       #     command: wget --retry-connrefused --waitretry=2 -t 5 "http://$(IPaddress):50051" > /dev/null

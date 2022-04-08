@@ -1,13 +1,21 @@
 version: 2.1
 jobs:
-  Build-and-Test:
+  Build-Server:
     docker:
       - image: cimg/node:current
     steps:
       - checkout
       - setup_remote_docker
-          # version: 19:03:13
-          # docker_layer_caching: true
+      - run:
+          name: "Build and start Server"
+          command: |
+            docker build -t image:test .
+            docker run --name "grpc-node-server" -p 50051:50051 -d image:test
+  Build-Test:
+    docker:
+      - image: node
+    steps:
+      - checkout
       - run:
           name: "Install Node Package"
           command: |
@@ -22,11 +30,6 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install k6
             mkdir client/reports
-      - run:
-          name: "Build and start Server"
-          command: |
-            docker build -t image:test .
-            docker run --name "grpc-node-server" -p 50051:50051 -d image:test
       # - run:
       #     name: "Storing Local IP Address"
       #     command: |
@@ -44,4 +47,5 @@ jobs:
 workflows:
   Loadtest-Workflow:
     jobs:
-      - Build-and-Test
+      - Build-Server
+      - Build-Test

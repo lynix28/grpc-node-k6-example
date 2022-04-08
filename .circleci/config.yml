@@ -16,7 +16,7 @@ jobs:
             mkdir client/reports
       - run:
           name: "Launch Server"
-          command: npm run server
+          command: npm run server &
       - run:
           name: "Run Test"
           command: npm run test

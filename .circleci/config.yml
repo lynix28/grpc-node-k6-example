@@ -10,7 +10,10 @@ jobs:
           # docker_layer_caching: true
       - run:
           name: "Install Node Package"
-          command: npm install
+          command: |
+            apt-get update
+            apt-get install node
+            npm install
       - run:
           name: "Install K6 and Create Report Folder"
           command: |

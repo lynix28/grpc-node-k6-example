@@ -2,12 +2,12 @@ version: 2.1
 jobs:
   Build-and-Test:
     docker:
-      - image: pridecontrol/node-test:v2
-        auth:
-          username: $USERNAME
-          password: $PASSWORD
+      - image: cimg/node:17.9
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 19:03:13
+          docker_layer_caching: true
       - run:
           name: "Install Node Package"
           command: npm install
@@ -19,29 +19,19 @@ jobs:
             apt-get update
             apt-get -y install k6
             mkdir client/reports
-      - run: 
-          name: "Install Docker"
-          command: |
-            apt-get -y install ca-certificates curl gnupg lsb-release apt-utils
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-            apt-get update
-            apt-get -y install docker.io
-            systemctl start docker
-            docker run -p 50051:50051 -d pridecontrol/node-test:v2
-      # - run:
-      #     name: "Launch Server"
-      #     command: npm run server &
-      #     background: true
       - run:
-          name: "Storing Local IP Address"
+          name: "Build and start Server"
           command: |
-            IPaddress=`node -p "require('ip').address()"`
-            echo "$IPaddress"
+            docker build -t image:test .
+            docker run --name "grpc-node-server" -p 50051:50051 image:test
+      # - run:
+      #     name: "Storing Local IP Address"
+      #     command: |
+      #       IPaddress=`node -p "require('ip').address()"`
+      #       echo "$IPaddress"
       - run:
           name: "Run Test"
           command: |
-            IPaddress=`node -p "require('ip').address()"`
-            echo "IP Address: $IPaddress"
             k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
       - store_artifacts:
           path: client/reports/

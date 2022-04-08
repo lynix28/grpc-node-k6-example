@@ -4,7 +4,7 @@ export const request = {
 	},
 	getData: {
 		positive: {
-			id: '1'
+			id: '2'
 		}
 	},
 	addData: {
@@ -16,7 +16,7 @@ export const request = {
 	},
 	editData: {
 		positive: {
-			id: '1',
+			id: '',
 			firstName: 'Sule',
 			lastName: 'Prikitiew',
 			email: 'awas_ada_sule@prikitiew.com'
@@ -24,7 +24,7 @@ export const request = {
 	},
 	deleteData: {
 		positive: {
-			id: '1'
+			id: ''
 		}
 	}
 };

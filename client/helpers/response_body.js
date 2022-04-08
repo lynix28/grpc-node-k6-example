@@ -1,8 +1,7 @@
 export const response = {
 	getAllData: {
 		positive: {
-			id: '1', // expecting array[0] is user with ID = 1
-			firstName: 'Putu'
+			count: 1 // greater than 1
 		}
 	},
 	getData: {
@@ -20,8 +19,15 @@ export const response = {
 	},
 	editData: {
 		positive: {
-			id: '1',
-			firstName: 'Sule'
+			firstName: 'Sule',
+			lastName: 'Prikitiew',
+			email: 'awas_ada_sule@prikitiew.com'
+		}
+	},
+	deleteData: {
+		positive: {
+			min: 1,
+			max: 10
 		}
 	}
 };

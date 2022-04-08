@@ -10,8 +10,7 @@ export function getAllData() {
 		describe(`${getAllDataCases.testcase.positive}`, function(test) {
 			const result = invokeGetAllData(request.getAllData.positive);
 			test.expect(result.status).as('gRPC Status').toEqual(grpc.StatusOK);
-			test.expect(result.message.datas[0].id).as('User ID').toEqual(response.getAllData.positive.id);
-			test.expect(result.message.datas[0].firstName).as('User First Name').toEqual(response.getAllData.positive.firstName);
+			test.expect(result.message.datas.length).as('User Count').	toBeGreaterThan(response.getAllData.positive.count);
 		});
 	});
 }

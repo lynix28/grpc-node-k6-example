@@ -6,7 +6,7 @@ import { getDataCases } from '../testcases/getData_cases.js';
 const client = new grpc.Client();
 client.load(['../helpers'], 'testing.proto');
 let url;
-if (__ENV.IPaddress != 'localhost') {
+if (__ENV.IPaddress != '') {
 	url = `${__ENV.IPaddress}:50051`;
 } else {
 	url = `${BASE_URL}:50051`;

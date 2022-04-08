@@ -7,6 +7,9 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: "Install Node Package"
+          command: npm install
+      - run:
           name: "Build and start Server"
           command: |
             docker build -t image:test .

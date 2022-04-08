@@ -16,7 +16,8 @@ jobs:
             mkdir client/reports
       - run:
           name: "Launch Server"
-          command: npm run server &
+          command: npm run server
+          background: true
       - run:
           name: "Storing Local IP Address"
           command: |

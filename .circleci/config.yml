@@ -33,7 +33,7 @@ jobs:
             - ip.txt
   Build-Test:
     docker:
-      - image: grafana/k 
+      - image: grafana/k6 
     steps:
       - attach_workspace:
           at: ~/aduhai/workspace

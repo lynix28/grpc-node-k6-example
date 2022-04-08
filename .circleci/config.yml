@@ -21,9 +21,9 @@ jobs:
           name: "Storing Local IP Address"
           command: |
             IPaddress=`node -p "require('ip').address()"`
+            echo "$HOME"
             echo "export const BASE_URL = $IPaddress;" > grpc-node-k6-example/env.js
             echo "$IPaddress"
-            echo "$HOME"
       # - run:
       #     name: "Waiting for Node Server to Start"
       #     command: wget --retry-connrefused --waitretry=2 -t 5 "http://$(IPaddress):50051" > /dev/null

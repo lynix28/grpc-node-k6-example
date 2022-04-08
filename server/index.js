@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const grpc = require('@grpc/grpc-js');
-const PROTO_PATH = './testing.proto';
+const PROTO_PATH = './server/testing.proto';
 const protoLoader = require('@grpc/proto-loader');
 
 const options = {

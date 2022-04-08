@@ -2,7 +2,10 @@ version: 2.1
 jobs:
   Build-and-Test:
     docker:
-      - image: pridecontrol/node-test
+      - image: pridecontrol/node-test:v1
+        auth:
+          username: $USERNAME
+          password: $PASSWORD
     steps:
       - checkout
       - run: 

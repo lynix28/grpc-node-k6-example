@@ -6,10 +6,10 @@ import { deleteDataCases } from '../testcases/deleteData_cases.js';
 const client = new grpc.Client();
 client.load(['../helpers'], 'testing.proto');
 let url;
-if (BASE_URL == 'localhost') {
-	url = `${BASE_URL}:50051`;
-} else {
+if (__ENV.IPaddress != 'localhost') {
 	url = `${__ENV.IPaddress}:50051`;
+} else {
+	url = `${BASE_URL}:50051`;
 }
 
 export function invokeDeleteData(message, list, listNumber) {

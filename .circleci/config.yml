@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   Build-and-Test:
     docker:
-      - image: node
+      - image: pridecontrol/node-test
     steps:
       - checkout
       - run: 

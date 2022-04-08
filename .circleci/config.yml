@@ -20,7 +20,7 @@ jobs:
       - run:
           name: "Storing Local IP Address"
           command: |
-            IPaddress=node -p "require('ip').address()"
+            IPaddress=`node -p "require('ip').address()`"
             echo "export const BASE_URL = $IPaddress;" > env.js
       - run:
           name: "Run Test"

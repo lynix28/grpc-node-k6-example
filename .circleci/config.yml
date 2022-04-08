@@ -26,7 +26,7 @@ jobs:
           name: "Build and start Server"
           command: |
             docker build -t image:test .
-            docker run --name "grpc-node-server" -p 50051:50051 image:test
+            docker run --name "grpc-node-server" -p 50051:50051 -d image:test
       # - run:
       #     name: "Storing Local IP Address"
       #     command: |

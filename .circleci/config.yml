@@ -19,7 +19,7 @@ jobs:
           command: npm run server &
       - run:
           name: "Waiting for Node Server to Start"
-          command: wget --retry-connrefused --waitretry=2 -t 5 "http://127.0.0.1:9000" > /dev/null
+          command: wget --retry-connrefused --waitretry=2 -t 5 "http://127.0.0.1:50051" > /dev/null
       # - run:
       #     name: "Storing Local IP Address"
       #     command: |

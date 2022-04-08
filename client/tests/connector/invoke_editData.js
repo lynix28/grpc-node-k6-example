@@ -5,7 +5,7 @@ const client = new grpc.Client();
 client.load(['../helpers'], 'testing.proto');
 
 export function invokeEditData(message, list) {
-	client.connect('localhost:50051', {
+	client.connect('127.0.0.1:50051', {
 		plaintext: true,
 		timeout: '60s'
 	});

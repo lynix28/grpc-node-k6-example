@@ -18,6 +18,11 @@ jobs:
           name: "Launch Server"
           command: npm run server &
       - run:
+          name: "Storing Local IP Address"
+          command: |
+            IPaddress=node -p "require('ip').address()"
+            echo "export const BASE_URL = $IPaddress;" > env.js
+      - run:
           name: "Run Test"
           command: npm run test
       - store_artifacts:

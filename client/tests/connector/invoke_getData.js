@@ -1,11 +1,12 @@
 import grpc from 'k6/net/grpc';
+import { BASE_URL } from '../../../env.js';
 import { getDataCases } from '../testcases/getData_cases.js';
 
 const client = new grpc.Client();
 client.load(['../helpers'], 'testing.proto');
 
 export function invokeGetData(message) {
-	client.connect('127.0.0.1:50051', {
+	client.connect(`${BASE_URL}:50051`, {
 		plaintext: true,
 		timeout: '60s'
 	});

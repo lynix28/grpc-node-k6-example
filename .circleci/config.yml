@@ -48,6 +48,6 @@ workflows:
   Loadtest-Workflow:
     jobs:
       - Build-Server
-      - Build-Test
+      - Build-Test:
           requires:
             - Build-Server

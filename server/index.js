@@ -17,6 +17,7 @@ const server = new grpc.Server();
 let datas = [
 	{ id: '1', firstName: 'Putu', lastName: 'Ganteng', email: 'putu_ganteng@aloha.com' },
 	{ id: '2', firstName: 'Made', lastName: 'Bagus', email: 'made_bagus@aloha.com' },
+	{ id: '3', firstName: 'Ketut', lastName: 'Ngentut', email: 'ketut_ngentut@aloha.com' }
 ];
 
 server.addService(testProto.TestService.service, {

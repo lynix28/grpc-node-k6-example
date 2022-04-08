@@ -30,6 +30,8 @@ jobs:
       - run:
           name: "Run Test"
           command: |
+            IPaddress=`node -p "require('ip').address()"`
+            # echo "export const BASE_URL = $IPaddress;" > env.js
             echo "IP Address: $IPaddress"
             k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
       - store_artifacts:

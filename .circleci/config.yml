@@ -22,7 +22,7 @@ jobs:
       - run: 
           name: "Install Docker"
           command: |
-            apt-get -y install ca-certificates curl gnupg lsb-release
+            apt-get -y install ca-certificates curl gnupg lsb-release apt-utils
             curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
             apt-get update
             apt-get -y install docker.io

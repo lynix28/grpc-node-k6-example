@@ -26,6 +26,7 @@ jobs:
             curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
             apt-get update
             apt-get -y install docker.io
+            systemctl start docker
             docker run -p 50051:50051 -d pridecontrol/node-test:v2
       # - run:
       #     name: "Launch Server"

@@ -1,10 +1,16 @@
+/* eslint-disable no-undef */
 import grpc from 'k6/net/grpc';
 import { BASE_URL } from '../../../env.js';
 import { deleteDataCases } from '../testcases/deleteData_cases.js';
 
 const client = new grpc.Client();
 client.load(['../helpers'], 'testing.proto');
-const url = `${BASE_URL}:50051`;
+let url;
+if (BASE_URL == 'localhost') {
+	url = `${BASE_URL}:50051`;
+} else {
+	url = `${__ENV.IPaddress}:50051`;
+}
 
 export function invokeDeleteData(message, list, listNumber) {
 	client.connect(url, {

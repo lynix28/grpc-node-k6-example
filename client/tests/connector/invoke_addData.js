@@ -4,9 +4,10 @@ import { addDataCases } from '../testcases/addData_cases.js';
 
 const client = new grpc.Client();
 client.load(['../helpers'], 'testing.proto');
+const url = `${BASE_URL}:50051`;
 
 export function invokeAddData(message) {
-	client.connect(`${BASE_URL}:50051`, {
+	client.connect(url, {
 		plaintext: true,
 		timeout: '60s'
 	});

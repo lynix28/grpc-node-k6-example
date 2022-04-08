@@ -11,6 +11,11 @@ jobs:
           command: |
             docker build -t image:test .
             docker run --name "grpc-node-server" -p 50051:50051 -d image:test
+      - run:
+          name: "Storing Local IP Address"
+          command: |
+            node -p "require('ip').address()" > ip.txt
+            cat ip.txt
   Build-Test:
     docker:
       - image: node
@@ -30,15 +35,10 @@ jobs:
             apt-get update
             apt-get -y install k6
             mkdir client/reports
-      # - run:
-      #     name: "Storing Local IP Address"
-      #     command: |
-      #       IPaddress=`node -p "require('ip').address()"`
-      #       echo "$IPaddress"
       - run:
           name: "Run Test"
           command: |
-            IPaddress=`node -p "require('ip').address()"`
+            IPaddress=`cat ip.txt`
             echo "$IPaddress"
             k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
       - store_artifacts:

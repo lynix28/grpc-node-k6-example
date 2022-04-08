@@ -21,7 +21,7 @@ jobs:
           name: "Storing Local IP Address"
           command: |
             IPaddress=`node -p "require('ip').address()"`
-            echo "export const BASE_URL = $IPaddress;" > env.js
+            # echo "export const BASE_URL = $IPaddress;" > env.js
             echo "$IPaddress"
             cat env.js
       # - run:

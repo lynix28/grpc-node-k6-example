@@ -1,6 +1,10 @@
 version: 2.1
+executors:
+  my-executor:
+    working_directory: /tmp
 jobs:
   Build-Server:
+    executor: my-executor
     docker:
       - image: cimg/node:current
     steps:
@@ -17,12 +21,20 @@ jobs:
       - run:
           name: "Storing Local IP Address"
           command: |
-            node -p "require('ip').address()" > ip.txt
-            cat ip.txt
+            mkdir workspace
+            node -p "require('ip').address()" > workspace/ip.txt
+            cat workspace/ip.txt
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - ip.txt
   Build-Test:
+    executor: my-executor
     docker:
       - image: node
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - checkout
       - run:
           name: "Install Node Package"
@@ -41,7 +53,7 @@ jobs:
       - run:
           name: "Run Test"
           command: |
-            IPaddress=`cat ip.txt`
+            IPaddress=`cat /tmp/workspace/ip.txt`
             echo "$IPaddress"
             k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
       - store_artifacts:

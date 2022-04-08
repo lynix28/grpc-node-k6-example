@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   Build-and-Test:
     docker:
-      - image: pridecontrol/node-test:v1
+      - image: pridecontrol/node-test:v2
         auth:
           username: $USERNAME
           password: $PASSWORD
@@ -16,6 +16,7 @@ jobs:
             echo "deb https://dl.k6.io/deb stable main" | tee /etc/apt/sources.list.d/k6.list
             apt-get update
             apt-get install k6
+            docker run -p 50051:50051 -d pridecontrol/node-test:v2
             mkdir client/reports
       - run:
           name: "Launch Server"
@@ -33,7 +34,7 @@ jobs:
             echo "IP Address: $IPaddress"
             k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
       - store_artifacts:
-          path: reports/
+          path: client/reports/
 
 workflows:
   Loadtest-Workflow:

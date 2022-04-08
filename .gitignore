@@ -4,4 +4,3 @@ node_modules/
 report/
 reports/
 *.log
-env.js

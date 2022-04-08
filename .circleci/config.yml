@@ -22,6 +22,7 @@ jobs:
           command: |
             IPaddress=`node -p "require('ip').address()"`
             echo "$HOME"
+            ls
             echo "export const BASE_URL = $IPaddress;" > grpc-node-k6-example/env.js
             echo "$IPaddress"
       # - run:

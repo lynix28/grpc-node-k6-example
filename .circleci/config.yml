@@ -1,12 +1,15 @@
 version: 2.1
 executors:
-  my-executor:
+  #my-executor:
+   # docker:
+      #- image: cimg/node:current
+   # working_directory: /aduhai
+jobs:
+  Build-Server:
+   # executor: my-executor
     docker:
       - image: cimg/node:current
     working_directory: /aduhai
-jobs:
-  Build-Server:
-    executor: my-executor
     steps:
       - checkout
       - setup_remote_docker
@@ -29,7 +32,8 @@ jobs:
           paths:
             - ip.txt
   Build-Test:
-    executor: my-executor
+    docker:
+      - image: node
     steps:
       - attach_workspace:
           at: /aduhai/workspace

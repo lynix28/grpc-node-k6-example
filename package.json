@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "node server/index.js",
-    "test": "k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json"
+    "test": "k6 run -e IPaddress=localhost client/tests/run_test.js --summary-export client/reports/result.json"
   },
   "author": "lynix28",
   "license": "ISC",

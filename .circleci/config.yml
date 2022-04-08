@@ -23,13 +23,13 @@ jobs:
             IPaddress=`node -p "require('ip').address()"`
             # echo "export const BASE_URL = $IPaddress;" > env.js
             echo "$IPaddress"
-            cat env.js
+            # cat env.js
       # - run:
       #     name: "Waiting for Node Server to Start"
       #     command: wget --retry-connrefused --waitretry=2 -t 5 "http://$(IPaddress):50051" > /dev/null
       - run:
           name: "Run Test"
-          command: npm run test
+          command: k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
       - store_artifacts:
           path: reports/
 

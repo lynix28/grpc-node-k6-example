@@ -1,12 +1,12 @@
 version: 2.1
 executors:
   my-executor:
+    docker:
+      - image: cimg/node:current
     working_directory: /tmp
 jobs:
   Build-Server:
     executor: my-executor
-    docker:
-      - image: cimg/node:current
     steps:
       - checkout
       - setup_remote_docker
@@ -30,8 +30,6 @@ jobs:
             - ip.txt
   Build-Test:
     executor: my-executor
-    docker:
-      - image: node
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -45,10 +43,10 @@ jobs:
       - run:
           name: "Install K6 and Create Report Folder"
           command: |
-            apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-            echo "deb https://dl.k6.io/deb stable main" | tee /etc/apt/sources.list.d/k6.list
-            apt-get update
-            apt-get -y install k6
+            sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+            echo "deb https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+            sudo apt-get update
+            sudo apt-get -y install k6
             mkdir client/reports
       - run:
           name: "Run Test"

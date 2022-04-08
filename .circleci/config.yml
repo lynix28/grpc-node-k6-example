@@ -17,15 +17,15 @@ jobs:
             apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
             echo "deb https://dl.k6.io/deb stable main" | tee /etc/apt/sources.list.d/k6.list
             apt-get update
-            apt-get install k6
+            apt-get -y install k6
             mkdir client/reports
       - run: 
           name: "Install Docker"
           command: |
-            apt-get install ca-certificates curl gnupg lsb-release
+            apt-get -y install ca-certificates curl gnupg lsb-release
             curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
             apt-get update
-            apt-get install docker-ce docker-ce-cli containerd.io
+            apt-get -y install docker-ce docker-ce-cli containerd.io
             docker run -p 50051:50051 -d pridecontrol/node-test:v2
       # - run:
       #     name: "Launch Server"

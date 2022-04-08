@@ -9,7 +9,7 @@ jobs:
    # executor: my-executor
     docker:
       - image: cimg/node:current
-    working_directory: /aduhai
+    working_directory: ~/aduhai
     steps:
       - checkout
       - setup_remote_docker
@@ -36,7 +36,7 @@ jobs:
       - image: node
     steps:
       - attach_workspace:
-          at: /aduhai/workspace
+          at: ~/aduhai/workspace
       - checkout
       - run:
           name: "Install Node Package"
@@ -55,7 +55,7 @@ jobs:
       - run:
           name: "Run Test"
           command: |
-            IPaddress=`cat /aduhai/workspace/ip.txt`
+            IPaddress=`cat ~/aduhai/workspace/ip.txt`
             echo "$IPaddress"
             k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
       - store_artifacts:

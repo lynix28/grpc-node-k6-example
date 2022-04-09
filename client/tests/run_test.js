@@ -6,7 +6,7 @@ import { deleteData } from './grpc/deleteData.js';
 
 export const options = {
 	thresholds: {
-		checks: ['rate<1']
+		checks: [ { threshold: 'rate<1', abortOnFail: true } ]
 	}
 };
 

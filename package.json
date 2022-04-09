@@ -1,12 +1,14 @@
 {
-  "name": "grpc-k6-example",
+  "name": "grpc-node-k6-example",
   "version": "1.0.0",
-  "description": "GRPC API automation test example with K6 by Grafana Labs",
+  "description": "GRPC automation test example with NodeJS (as Server) and K6 by Grafana Labs (as Client)",
   "main": "index.js",
   "scripts": {
-    "server": "node index.js"
+    "server": "node server/index.js",
+    "test": "k6 run -e IPaddress=localhost client/tests/run_test.js --summary-export client/reports/result.json",
+    "start": "npm run server"
   },
-  "author": "",
+  "author": "lynix28",
   "license": "ISC",
   "dependencies": {
     "@grpc/grpc-js": "^1.6.2"

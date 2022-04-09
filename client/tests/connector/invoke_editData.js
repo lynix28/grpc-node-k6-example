@@ -1,11 +1,19 @@
+/* eslint-disable no-undef */
 import grpc from 'k6/net/grpc';
+import { BASE_URL } from '../../../env.js';
 import { editDataCases } from '../testcases/editData_cases.js';
 
 const client = new grpc.Client();
 client.load(['../helpers'], 'testing.proto');
+let url;
+if (__ENV.IPaddress != '') {
+	url = `${__ENV.IPaddress}:50051`;
+} else {
+	url = `${BASE_URL}:50051`;
+}
 
 export function invokeEditData(message, list) {
-	client.connect('localhost:50051', {
+	client.connect(url, {
 		plaintext: true,
 		timeout: '60s'
 	});

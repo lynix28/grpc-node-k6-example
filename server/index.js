@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const grpc = require('@grpc/grpc-js');
-const PROTO_PATH = './testing.proto';
+const PROTO_PATH = './server/testing.proto';
 const protoLoader = require('@grpc/proto-loader');
 
 const options = {
@@ -50,7 +50,7 @@ server.addService(testProto.TestService.service, {
 });
 
 server.bindAsync(
-	'127.0.0.1:50051',
+	'0.0.0.0:50051',
 	grpc.ServerCredentials.createInsecure(),
 	(error, port) => {
 		console.log('Server at port:', port);

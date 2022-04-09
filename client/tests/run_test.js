@@ -4,6 +4,12 @@ import { addData } from './grpc/addData.js';
 import { editData } from './grpc/editData.js';
 import { deleteData } from './grpc/deleteData.js';
 
+export const options = {
+	thresholds: {
+		checks: ['rate<1']
+	}
+};
+
 export default function() {
 	getAllData();
 	getData();

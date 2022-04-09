@@ -18,6 +18,7 @@ jobs:
             docker run --name "grpc-node-server" -p 50051:50051 -d image:test
   Build-Test:
     executor: my-executor
+    steps:
       - checkout
       - run:
           name: "Install Node Package"
@@ -44,5 +45,6 @@ workflows:
   GRPC-Test-Workflow:
     jobs:
       - Build-Server
-      - Build-Test
-          requires: Build-Server
+      - Build-Test:
+          requires:
+            - Build-Server

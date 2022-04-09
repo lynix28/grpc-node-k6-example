@@ -24,10 +24,7 @@ jobs:
             docker run --name "grpc-node-server" -p 50051:50051 -d image:test
       - run:
           name: "Run Test"
-          command: |
-            IPaddress=`cat ~/aduhai/workspace/ip.txt`
-            echo "$IPaddress"
-            k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
+          command: k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
       - store_artifacts:
           path: client/reports/
 

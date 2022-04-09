@@ -1,25 +1,21 @@
 version: 2.1
-executors:
-  my-executor:
+# Used if only need 1 VM/Docker Image for several jobs
+# executors:
+  # my-executor:
+  #   machine:
+  #     image: ubuntu-2004:current
+jobs:
+  Build-and-Test:
     machine:
       image: ubuntu-2004:current
-jobs:
-  Build-Server:
-    executor: my-executor
+    # executor: my-executor
     steps:
       - checkout
       - run: 
-          name: "Build Docker Image"
+          name: "Build and Run Server Container"
           command: |
             docker build -t image:test .
-      - run:
-          name: "Run Docker Container"
-          command: |
             docker run --name "grpc-node-server" -p 50051:50051 -d image:test
-  Build-Test:
-    executor: my-executor
-    steps:
-      - checkout
       - run:
           name: "Install Node Package"
           command: |
@@ -39,12 +35,12 @@ jobs:
           name: "Run Test"
           command: k6 run -e IPaddress=$IPaddress client/tests/run_test.js --summary-export client/reports/result.json
       - store_artifacts:
-          path: client/reports/
+          path: client/reports/   
 
 workflows:
   GRPC-Test-Workflow:
     jobs:
-      - Build-Server
-      - Build-Test:
-          requires:
-            - Build-Server
+      - Build-and-Test
+      # - Build-Test:
+      #     requires:
+      #       - Build-Server

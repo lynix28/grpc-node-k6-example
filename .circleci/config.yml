@@ -13,7 +13,7 @@ jobs:
           name: "Install Node Package"
           command: |
             sudo apt-get update 
-            sudo apt-get install node
+            sudo apt-get install node npm
             npm install
       - run:
           name: "Install K6"

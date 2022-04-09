@@ -1,7 +1,8 @@
 version: 2.1
 jobs:
   Build-and-Test:
-    machine: true
+    machine:
+      image: ubuntu-2004:current
     steps:
       - checkout
       - run: 

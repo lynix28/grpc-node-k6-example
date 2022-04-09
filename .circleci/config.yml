@@ -1,15 +1,24 @@
 version: 2.1
-jobs:
-  Build-and-Test:
+executors:
+  my-executor:
     machine:
       image: ubuntu-2004:current
+jobs:
+  Build-Server:
+    executor: my-executor
     steps:
       - checkout
       - run: 
-          name: "Build and Start Server"
+          name: "Build Docker Image"
           command: |
             docker build -t image:test .
+      - run:
+          name: "Run Docker Container"
+          command: |
             docker run --name "grpc-node-server" -p 50051:50051 -d image:test
+  Build-Test:
+    executor: my-executor
+      - checkout
       - run:
           name: "Install Node Package"
           command: |
@@ -34,4 +43,6 @@ jobs:
 workflows:
   GRPC-Test-Workflow:
     jobs:
-      - Build-and-Test
+      - Build-Server
+      - Build-Test
+          requires: Build-Server
